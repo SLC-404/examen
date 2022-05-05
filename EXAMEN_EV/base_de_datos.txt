@@ -1,0 +1,39 @@
+create database CHAT;
+
+use CHAT;
+======================================================================
+create table usuario(
+id_usuario int auto_increment primary key,
+nombre varchar(100));
+
+create table chats(
+id_mensaje int auto_increment primary key,
+id_usuario int,
+foreign key (id_usuario) references usuario(id_usuario),
+mensaje varchar(1000),
+n_mensaje int,
+foreign key (n_mensaje) references numero_de_mensaje(id_n),
+fecha date);
+
+create table archivos_adjuntos(
+id_archivo int auto_increment primary key,
+id_usuario int,
+foreign key (id_usuario) references usuario(id_usuario),
+archivo longblob,
+nombre_archivo varchar(50),
+n_mensaje int,
+foreign key (n_mensaje) references numero_de_mensaje(id_n),
+fecha date);
+
+create table numero_de_mensaje(
+id_n int auto_increment primary key,
+valor varchar(10));
+======================================================================
+insert into usuario(nombre)values
+('Administrador'),
+('Cesar');
+
+
+select aa.id_usuario, mensaje, ch.fecha, archivo, nombre_archivo, aa.fecha 
+from archivos_adjuntos aa, chats ch
+where aa.id_usuario= ch.id_usuario;
